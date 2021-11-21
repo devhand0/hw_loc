@@ -14,7 +14,7 @@ public class Run {
     private final org.apache.logging.log4j.Logger
             logger = LogManager.getLogger(Logger.class);
     @Before
-    public void StartUp(){
+    public void startUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
@@ -45,24 +45,30 @@ public class Run {
         driver.findElement(By.id(id)).submit();
     }
     private void checkOtus(){
-        if
-        (driver.findElement(By.cssSelector("#links > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1) > a:nth-child(1)")).getText().contains("Онлайн‑курсы"))
-        {
-            logger.info("приверил ссылку ОК");
-        }
-        else
-        {
-            logger.info("приверил ссылку не ОК");
-        }
+        assert(driver.findElement(By.cssSelector("#links > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1) > a:nth-child(1)")).getText().contains("Онлайн‑курсы")) : "Отус больше не первый" ;
         logger.info("успех");
     }
+
+    //    private void checkOtus(){
+//        if
+//        (driver.findElement(By.cssSelector("#links > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1) > a:nth-child(1)")).getText().contains("Онлайн‑курсы"))
+//        {
+//            logger.info("приверил ссылку ОК");
+//        }
+//        else
+//        {
+//            logger.info("приверил ссылку не ОК");
+//        }
+//        logger.info("успех");
+//    }
     private void openDuck(){
-        driver.quit();
+        end();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://duckduckgo.com/");
+        Assert.assertEquals(driver.getTitle() ,"DuckDuckGo — Максимум конфиденциальности, минимум усилий.");
     }
     /*
 2)
@@ -80,13 +86,14 @@ public class Run {
     }
     private void openGal()
     {
-        driver.quit();
+        end();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--kiosk");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         final String url = "https://demo.w3layouts.com/demos_new/template_demo/03-10-2020/photoflash-liberty-demo_Free/685659620/web/index.html?_ga=2.181802926.889871791.1632394818-2083132868.1632394818";
         driver.get(url);
+        Assert.assertEquals(driver.getTitle() ,"Photoflash - Photo Gallery Category Bootstrap Responsive Website Template - Home :: W3layouts ");
         logger.info("открылся сайт");
     }
     private void checkPhoto() throws InterruptedException {
@@ -97,13 +104,15 @@ public class Run {
 
         driver.findElement(By.cssSelector(photo)).click();
         logger.info("открылось модальное окно");
-        Thread.sleep(1500);
+        Thread.sleep(1000);
         logger.info("Ждем появления елемента модально окна");
+        Assert.assertNotNull(checkElement(By.cssSelector(".pp_close")));
         checkElement(By.cssSelector(".pp_close")).click();
         logger.info("успех");
     }
 
     private WebElement checkElement(By locator){
+
         return new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(locator));
         }
 
@@ -114,23 +123,25 @@ public class Run {
 4)Вывести в лог все cookie
 */
 @Test
-public void hw3() throws InterruptedException {
+public void hw3() {
     openOtusFS();
     auth();
     getCookie();
     }
     public void openOtusFS(){
-    driver.quit();
+    end();
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--start-fullscreen");
     driver = new ChromeDriver(options);
+    driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     driver.get("http://otus.ru");
+    Assert.assertEquals(driver.getTitle() ,"Онлайн‑курсы для профессионалов, дистанционное обучение современным профессиям");
 }
 
     public void getCookie(){
-        logger.error(driver.manage().getCookies());
+        logger.info(driver.manage().getCookies());
     }
-    public void auth() throws InterruptedException {
+    public void auth(){
         final String login = "dev.loop1@gmail.com";
         final String pass = "12345";
         String buttonReg = ".header2__auth";
@@ -141,12 +152,13 @@ public void hw3() throws InterruptedException {
         driver.findElement(By.cssSelector(loginWindow)).sendKeys(login);
         driver.findElement(By.cssSelector(passWindow)).clear();
         driver.findElement(By.cssSelector(passWindow)).sendKeys(pass);
-        driver.findElement(By.xpath(("/html/body/div[2]/div/div/div/div[3]/div[2]/div[2]/form/div[4]/button"))).click();
-        Thread.sleep(5000);
+        //driver.findElement(By.xpath(("/html/body/div[2]/div/div/div/div[3]/div[2]/div[2]/form/div[4]/button"))).click();
+        driver.findElement(By.cssSelector("div.new-input-line_last:nth-child(5) > button:nth-child(1)")).click();
+        Assert.assertNotNull(driver.findElement(By.cssSelector(".button__my-course")));
     }
 
     @After
-    public void End(){
+    public void end(){
         if (driver!=null)
             driver.quit();
     }
