@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class Run {
@@ -17,7 +19,8 @@ public class Run {
     public void startUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        Duration duration = Duration.ofSeconds(3) ;
+        driver.manage().timeouts().implicitlyWait(duration);
         logger.info("Драйвер поднят");
     }
     @Test
@@ -45,31 +48,25 @@ public class Run {
         driver.findElement(By.id(id)).submit();
     }
     private void checkOtus(){
-        assert(driver.findElement(By.cssSelector("#links > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1) > a:nth-child(1)")).getText().contains("Онлайн‑курсы")) : "Отус больше не первый" ;
-        logger.info("успех");
-    }
-
-    //    private void checkOtus(){
-//        if
-//        (driver.findElement(By.cssSelector("#links > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1) > a:nth-child(1)")).getText().contains("Онлайн‑курсы"))
-//        {
-//            logger.info("приверил ссылку ОК");
-//        }
-//        else
-//        {
-//            logger.info("приверил ссылку не ОК");
-//        }
+//        assert(driver.findElement(By.cssSelector("#links > div:nth-child(1) > div:nth-child(1) > h2:nth-child(1) > a:nth-child(1)")).getText().contains("Онлайн‑курсы")) : "Отус больше не первый" ;
+//        assert(driver.findElement(By.cssSelector("#r1-0>div>h2.result__title")).getText().contains("Онлайн‑курсы")) : "Отус больше не первый" ;
 //        logger.info("успех");
-//    }
-    private void openDuck(){
+        try {Assert.assertTrue(driver.findElement(By.cssSelector("#r1-0>div>h2.result__title")).getText().contains("Онлайн‑курсы"));}
+        catch (AssertionError e){logger.error("Отус больше не первый");Assert.fail();}
+        logger.info("Отус первый в списке");
+    }
+    public void openDuck(){
         end();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Duration duration = Duration.ofSeconds(3) ;
+        driver.manage().timeouts().implicitlyWait(duration);
         driver.get("https://duckduckgo.com/");
-        Assert.assertEquals(driver.getTitle() ,"DuckDuckGo — Максимум конфиденциальности, минимум усилий.");
-    }
+        try {Assert.assertTrue(driver.getTitle().contains("DuckDuckGo"));}
+        catch (AssertionError e){logger.error("https://duckduckgo.com/ не открылся");Assert.fail();}
+        logger.info("https://duckduckgo.com/ открылся успешно");
+        }
     /*
 2)
 
@@ -79,7 +76,7 @@ public class Run {
 Проверить что картинка открылась в модальном окне
      */
     @Test
-    public void hw2() throws InterruptedException
+    public void hw2()
     {
      openGal();
      checkPhoto();
@@ -93,27 +90,30 @@ public class Run {
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         final String url = "https://demo.w3layouts.com/demos_new/template_demo/03-10-2020/photoflash-liberty-demo_Free/685659620/web/index.html?_ga=2.181802926.889871791.1632394818-2083132868.1632394818";
         driver.get(url);
-        Assert.assertEquals(driver.getTitle() ,"Photoflash - Photo Gallery Category Bootstrap Responsive Website Template - Home :: W3layouts ");
-        logger.info("открылся сайт");
+//        Assert.assertEquals(driver.getTitle() ,"Photoflash - Photo Gallery Category Bootstrap Responsive Website Template - Home :: W3layouts ");
+//        logger.info("открылся сайт");
+        try {Assert.assertTrue(driver.getTitle().contains("Photoflash"));}
+        catch (AssertionError e){logger.error("Photoflash не открылся");Assert.fail();}
+        logger.info("Photoflash открылся успешно");
     }
-    private void checkPhoto() throws InterruptedException {
+    private void checkPhoto() {
 
         final String photo = "li.portfolio-item2:nth-child(1)";
-
-
-
         driver.findElement(By.cssSelector(photo)).click();
         logger.info("открылось модальное окно");
-        Thread.sleep(1000);
+//        Thread.sleep(3000);
         logger.info("Ждем появления елемента модально окна");
-        Assert.assertNotNull(checkElement(By.cssSelector(".pp_close")));
-        checkElement(By.cssSelector(".pp_close")).click();
+        try {Assert.assertNotNull(checkElement(By.cssSelector(".pp_close")));}
+        catch (AssertionError e){logger.error("Нет элемента модального окна");Assert.fail();}
         logger.info("успех");
+        checkElement(By.cssSelector(".pp_close")).click();
+        logger.info("закрыли модальное окно");
     }
 
     private WebElement checkElement(By locator){
 
-        return new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(locator));
+        return new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(locator));
+
         }
 
 /*
