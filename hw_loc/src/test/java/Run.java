@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+//import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class Run {
@@ -19,8 +19,8 @@ public class Run {
     public void startUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        Duration duration = Duration.ofSeconds(3) ;
-        driver.manage().timeouts().implicitlyWait(duration);
+        //
+        driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
         logger.info("Драйвер поднят");
     }
     @Test
@@ -60,8 +60,8 @@ public class Run {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
         driver = new ChromeDriver(options);
-        Duration duration = Duration.ofSeconds(3) ;
-        driver.manage().timeouts().implicitlyWait(duration);
+//        Duration duration = Duration.ofSeconds(3) ;
+        driver.manage().timeouts().implicitlyWait(3,TimeUnit.SECONDS);
         driver.get("https://duckduckgo.com/");
         try {Assert.assertTrue(driver.getTitle().contains("DuckDuckGo"));}
         catch (AssertionError e){logger.error("https://duckduckgo.com/ не открылся");Assert.fail();}
@@ -135,7 +135,7 @@ public void hw3() {
     driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     driver.get("http://otus.ru");
-    Assert.assertEquals(driver.getTitle() ,"Онлайн‑курсы для профессионалов, дистанционное обучение современным профессиям");
+    Assert.assertEquals("Онлайн‑курсы для профессионалов, дистанционное обучение современным профессиям", driver.getTitle());
 }
 
     public void getCookie(){
