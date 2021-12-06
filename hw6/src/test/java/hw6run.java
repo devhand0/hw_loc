@@ -65,18 +65,6 @@ public void checkPersonal()  {
     openOtus();
     auth();
     goToPersonal();
-//    logger.info("Проверка имени");
-//    try {
-//        Assert.assertEquals(cfg.name(), driver.findElement(By.cssSelector(nameLoc)).getAttribute("value") );
-//    } catch (Exception e) {
-//        logger.error("Ошибка");
-//    }
-//    Assert.assertEquals(cfg.name(), driver.findElement(By.cssSelector(nameLoc)).getAttribute("value") );
-//    Assert.assertEquals("cfg.nameLatin()", driver.findElement(By.cssSelector(nameLatinLoc)).getAttribute("value"));
-//    Assert.assertEquals(cfg.surname(), driver.findElement(By.cssSelector(surnameLoc)).getAttribute("value"));
-//    Assert.assertEquals(cfg.surnameLatin(), driver.findElement(By.cssSelector(surnameLatinLoc)).getAttribute("value"));
-//    Assert.assertEquals(cfg.nickname(), driver.findElement(By.cssSelector(nicknameLoc)).getAttribute("value"));
-//    Assert.assertEquals(cfg.birthday(), driver.findElement(By.cssSelector(birthdayLoc)).getAttribute("value"));
 /////////////////////////////////////
     logger.info("Проверка имени");
     myAssertEquals(cfg.name(), driver.findElement(By.cssSelector(nameLoc)).getAttribute("value"));
@@ -104,21 +92,6 @@ public void checkPersonal()  {
     myAssertEquals("Тelegram",driver.findElement(By.cssSelector("div.js-formset-row:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
     logger.info("Проверка значения контакта, выбран Тelegram");
     myAssertEquals(cfg.telegram(), driver.findElement(By.cssSelector("#id_contact-1-value")).getAttribute("value"));
-//    logger.info("");
-//    myAssertEquals();
-//    Assert.assertEquals("Россия", driver.findElement((By.cssSelector(countryLoc))).getText());
-//    Assert.assertEquals("Москва", driver.findElement(By.cssSelector(".js-lk-cv-dependent-slave-city")).getText());
-//    Assert.assertEquals("Средний (Intermediate)", driver.findElement(By.cssSelector("div.container__col_12:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
-//    //Assert.assertEquals("Средний (Intermediate)", driver.findElement(By.cssSelector("div.container__col_12:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
-//    Assert.assertEquals("Skype", driver.findElement(By.cssSelector("div.js-formset-row:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div")).getText());
-//    Assert.assertEquals(cfg.skype(), driver.findElement(By.cssSelector("#id_contact-0-value")).getAttribute("value"));
-//    Assert.assertEquals("Тelegram",driver.findElement(By.cssSelector("div.js-formset-row:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
-//    Assert.assertEquals(cfg.telegram(), driver.findElement(By.cssSelector("#id_contact-1-value")).getAttribute("value"));
-//        boolean a = driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Удалить')]")).isDisplayed();
-
-//    Thread.sleep(3000);
-}
-
 
     @Test
 public void hw6()  {
@@ -128,7 +101,6 @@ public void hw6()  {
     auth();
     goToPersonal();
     modPersonal();
-    //Thread.sleep(3000);
     checkPersonal();
 }
 
@@ -174,30 +146,23 @@ public void hw6()  {
 //   Добавление контактов
 // Telegramm
         driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Добавить')]")).click();
-//        Thread.sleep(3000);
-//        waitElement(By.cssSelector("span.placeholder")).click();
+
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>div.select>label")).click();
-//        Thread.sleep(3000);
-        //System.out.println(waitElement(By.cssSelector("div.js-formset-row:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div")).getText());
-//        Thread.sleep(3000);
-//        waitElement(By.xpath("//*[contains(text(), 'Тelegram')]")).click();
+
         driver.findElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>div.select>div>div>button[data-value='telegram']")).click();
-//        Thread.sleep(3000);
+
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).clear();
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).sendKeys(cfg.telegram());
 //  Skype
         driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Добавить')]")).click();
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>div.select>label")).click();
-//        Thread.sleep(3000);
-        //System.out.println(waitElement(By.cssSelector("div.js-formset-row:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div")).getText());
-//        Thread.sleep(3000);
-//        waitElement(By.xpath("//*[contains(text(), 'Тelegram')]")).click();
+
         driver.findElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>div.select>div>div>button[data-value='skype']")).click();
-//        Thread.sleep(3000);
+
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).clear();
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).sendKeys(cfg.skype());
         //    Сохранить продолжить
-//        driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Сохранить и продолжить')]")).click();
+        driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Сохранить и продолжить')]")).click();
     //    Thread.sleep(15000);
     }
     public void goToPersonal()
@@ -208,10 +173,6 @@ public void hw6()  {
     public void openOtus(){
         System.out.println(cfg.login());
         //        end();
-//        ChromeOptions options = new ChromeOptions();
-//        options.addArguments("--start-fullscreen");
-//        driver = new ChromeDriver(options);
-//        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.get("http://otus.ru");
         Assert.assertEquals(driver.getTitle() ,"Онлайн‑курсы для профессионалов, дистанционное обучение современным профессиям");
     }
