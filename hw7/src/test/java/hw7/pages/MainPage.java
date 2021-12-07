@@ -17,16 +17,31 @@ public class MainPage extends BasePage {
         driver.get(otus_URL);
         return this;
     }
+
+    public String loginE() {
+        if (System.getProperty("login")==null){
+            return cfg.login();
+        }else {return System.getProperty("login");
+        }
+    }
+    public String passE() {
+        if (System.getProperty("pass")==null){
+            return cfg.pass();
+        }else {return System.getProperty("pass");
+        }
+    }
+
     public MainPage auth(){
+
         final String buttonReg = ".header2__auth";
         final String loginWindow = "div.new-input-line_slim:nth-child(3) > input:nth-child(1)";
         final String passWindow = ".js-psw-input";
         final String buttonEnter = "div.new-input-line_last:nth-child(5) > button:nth-child(1)";
         driver.findElement(By.cssSelector(buttonReg)).click();
         waitElement(By.cssSelector(loginWindow)).clear();
-        driver.findElement(By.cssSelector(loginWindow)).sendKeys(cfg.login());
+        driver.findElement(By.cssSelector(loginWindow)).sendKeys(loginE());
         driver.findElement(By.cssSelector(passWindow)).clear();
-        driver.findElement(By.cssSelector(passWindow)).sendKeys(cfg.pass());
+        driver.findElement(By.cssSelector(passWindow)).sendKeys(passE());
         driver.findElement(By.cssSelector(buttonEnter)).click();
         Assert.assertNotNull(driver.findElement(By.cssSelector(".button__my-course")));
         return this;

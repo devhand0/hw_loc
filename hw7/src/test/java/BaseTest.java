@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import java.util.concurrent.TimeUnit;
 
 
-public class Base {
+public class BaseTest {
     protected WebDriver driver;
     public static final org.apache.logging.log4j.Logger
             logger = LogManager.getLogger(WebDriver.class);
@@ -30,7 +30,7 @@ public class Base {
     @After
         public void end(){
             if (driver!=null)
-                driver.quit();
+                 ;
 
    }
 }

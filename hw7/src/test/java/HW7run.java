@@ -1,9 +1,8 @@
 import hw7.pages.LKpage;
 import hw7.pages.MainPage;
 import org.junit.*;
-import org.openqa.selenium.WebDriver;
 
-public class HW7run extends Base {
+public class HW7run extends BaseTest {
 //
 //    В результате выполнения дз вы реализуете автоматический тест, используя Java + Selenium
 //
@@ -46,9 +45,19 @@ public class HW7run extends Base {
     MainPage mainPage = new MainPage(driver);
     mainPage.open().auth().goToPersonal();
     LKpage lKpage = new LKpage(driver);
+    logger.info("Заполнение");
     lKpage.removeContacts();
     lKpage.modPersonal();
-    Thread.sleep(3000);
+//    Thread.sleep(3000);
+        driver.quit();
+        logger.info("Заполнение закончено успешно");
+
+    setUp();
+    MainPage mainPage1 = new MainPage(driver);
+    mainPage1.open().auth().goToPersonal();
+//    mainPage1.auth().goToPersonal();
+    lKpage.checkPersonal();
+    end();
     }
 
 
