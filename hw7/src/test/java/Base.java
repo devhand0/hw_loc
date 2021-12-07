@@ -15,13 +15,13 @@ public class Base {
     protected WebDriver driver;
     public static final org.apache.logging.log4j.Logger
             logger = LogManager.getLogger(WebDriver.class);
-
+    private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
     @Before
 
 
     public void setUp(){
         String options = "";
-        driver = WebDriverFactory.create(Browsers.FIREFOX, options);
+        driver = WebDriverFactory.create(Browsers.CHROME, options);
         driver.manage().timeouts().implicitlyWait(11, TimeUnit.SECONDS);
 
 

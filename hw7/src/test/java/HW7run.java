@@ -3,7 +3,7 @@ import hw7.pages.MainPage;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 
-public class hw7run extends Base {
+public class HW7run extends Base {
 //
 //    В результате выполнения дз вы реализуете автоматический тест, используя Java + Selenium
 //

@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class MainPage extends BasePage {
-
+    private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
     public MainPage(WebDriver driver) {
         super(driver);
         }
