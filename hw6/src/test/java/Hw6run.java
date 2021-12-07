@@ -9,12 +9,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static org.bouncycastle.cms.RecipientId.password;
 
-public class hw6run {
+
+public class Hw6run {
     protected static WebDriver driver;
     public static final org.apache.logging.log4j.Logger
             logger = LogManager.getLogger(WebDriver.class);
