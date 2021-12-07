@@ -9,7 +9,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import static org.bouncycastle.cms.RecipientId.password;
 
 public class hw6run {
     protected static WebDriver driver;
@@ -56,9 +59,19 @@ public class hw6run {
 //    7)Авторизоваться на сайе
 //    8)Войти в личный кабинет
 //    10)Проверить, что в разделе "О себе" отображаются указанные ранее данные
-@Test
 
-public void checkPersonal()  {
+    @Test
+    public void hw6()  {
+        String log = System.getProperty("log");
+        System.out.println(log);
+        startUp();
+        openOtus();
+        auth();
+        goToPersonal();
+        modPersonal();
+        checkPersonal();
+    }
+public void checkPersonal() {
 
     end();
     startUp();
@@ -89,20 +102,11 @@ public void checkPersonal()  {
     logger.info("Проверка значения контакта, выбран Skype");
     myAssertEquals(cfg.skype(), driver.findElement(By.cssSelector("#id_contact-0-value")).getAttribute("value"));
     logger.info("Проверка типа контакта, выбран Тelegram");
-    myAssertEquals("Тelegram",driver.findElement(By.cssSelector("div.js-formset-row:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
+    myAssertEquals("Тelegram", driver.findElement(By.cssSelector("div.js-formset-row:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
     logger.info("Проверка значения контакта, выбран Тelegram");
     myAssertEquals(cfg.telegram(), driver.findElement(By.cssSelector("#id_contact-1-value")).getAttribute("value"));
-
-    @Test
-public void hw6()  {
-
-    startUp();
-    openOtus();
-    auth();
-    goToPersonal();
-    modPersonal();
-    checkPersonal();
 }
+
 
 
     public WebElement waitElement(By locator){
@@ -112,7 +116,7 @@ public void hw6()  {
     }
     public void modPersonal()  {
 // очистка контактов
-        List<WebElement> options = driver.findElements(By.tagName("button").xpath("//*[contains(text(), 'Удалить')]"));
+        List<WebElement> options = driver.findElements(By.xpath("//*[contains(text(), 'Удалить')]"));
         System.out.println(" CLASS  Elements size " + options.size());
         for (WebElement option : options){
             if(option.isDisplayed()){
@@ -121,6 +125,7 @@ public void hw6()  {
         }
 //        Очистка - ввод текста
         driver.findElement(By.cssSelector(nameLoc)).clear();
+        System.out.println(cfg.name());
         driver.findElement(By.cssSelector(nameLoc)).sendKeys(cfg.name());
         driver.findElement(By.cssSelector(nameLatinLoc)).clear();
         driver.findElement(By.cssSelector(nameLatinLoc)).sendKeys(cfg.nameLatin());
@@ -134,18 +139,18 @@ public void hw6()  {
         driver.findElement(By.cssSelector(birthdayLoc)).sendKeys(cfg.birthday());
 //        Списки страна, город, уровень английского
         driver.findElement(By.cssSelector(countryLoc)).click();
-        waitElement(By.tagName("button").xpath("//*[@title='Россия']")).click();
+        waitElement(By.xpath("//*[@title='Россия']")).click();
 //        System.out.println(driver.findElement((By.cssSelector(countryLoc))).getText());
-        waitElement(By.cssSelector(".js-lk-cv-dependent-slave-city>label")).click();
+        waitElement(By.cssSelector(".js-lk-cv-dependent-slave-city>label>div")).click();
 //        waitElement(By.cssSelector("body > div.body-wrapper > div > div.js-lk-cv > div.container.container-padding-bottom > div.container__row > div.container__col.container__col_9.container__col_md-8.container__col_sm-12.container__col_border-left.lk-rightbar.print-block.print-wide > div > form > div:nth-child(2) > div.container__col.container__col_12 > div:nth-child(1) > div > div.container__col.container__col_9.container__col_ssm-12 > div:nth-child(2) > div.container__col.container__col_9.container__col_md-8.container__col_middle > div > label > div")).click();
-        waitElement(By.tagName("button").xpath("//*[@title='Москва']")).click();
+        waitElement(By.xpath("//*[@title='Москва']")).click();
         System.out.println(waitElement(By.cssSelector(".js-lk-cv-dependent-slave-city")).getText());
         driver.findElement(By.cssSelector("div.container__col_12:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).click();
-        waitElement(By.tagName("button").xpath("//*[@title='Средний (Intermediate)']")).click();
+        waitElement(By.xpath("//*[@title='Средний (Intermediate)']")).click();
         System.out.println(waitElement(By.cssSelector("div.container__col_12:nth-child(3) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > label:nth-child(1) > div:nth-child(2)")).getText());
 //   Добавление контактов
 // Telegramm
-        driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Добавить')]")).click();
+        driver.findElement(By.xpath("//*[contains(text(), 'Добавить')]")).click();
 
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>div.select>label")).click();
 
@@ -154,7 +159,7 @@ public void hw6()  {
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).clear();
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).sendKeys(cfg.telegram());
 //  Skype
-        driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Добавить')]")).click();
+        driver.findElement(By.xpath("//*[contains(text(), 'Добавить')]")).click();
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>div.select>label")).click();
 
         driver.findElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>div.select>div>div>button[data-value='skype']")).click();
@@ -162,7 +167,7 @@ public void hw6()  {
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).clear();
         waitElement(By.cssSelector("div.js-formset-row:last-child>div>div>div>input")).sendKeys(cfg.skype());
         //    Сохранить продолжить
-        driver.findElement(By.tagName("button").xpath("//*[contains(text(), 'Сохранить и продолжить')]")).click();
+        driver.findElement(By.xpath("//*[contains(text(), 'Сохранить и продолжить')]")).click();
     //    Thread.sleep(15000);
     }
     public void goToPersonal()
@@ -171,21 +176,30 @@ public void hw6()  {
     driver.findElement(By.cssSelector(".header2-menu__dropdown-text")).click();
     }
     public void openOtus(){
-        System.out.println(cfg.login());
+//        System.out.println(cfg.login());
         //        end();
         driver.get("http://otus.ru");
         Assert.assertEquals(driver.getTitle() ,"Онлайн‑курсы для профессионалов, дистанционное обучение современным профессиям");
     }
+    public static String loginE() {
+        return System.getProperty("login");
+    }
+    public static String passE() {
+        return System.getProperty("pass");
+    }
     public void auth(){
+//        System.setProperty("login", "dev.loop1@gmail.com");
+//        System.setProperty("pass", "12345");
         final String buttonReg = ".header2__auth";
         final String loginWindow = "div.new-input-line_slim:nth-child(3) > input:nth-child(1)";
         final String passWindow = ".js-psw-input";
         final String buttonEnter = "div.new-input-line_last:nth-child(5) > button:nth-child(1)";
+        System.out.println(loginE()+ " "+passE());
         driver.findElement(By.cssSelector(buttonReg)).click();
         driver.findElement(By.cssSelector(loginWindow)).clear();
-        driver.findElement(By.cssSelector(loginWindow)).sendKeys(cfg.login());
+        driver.findElement(By.cssSelector(loginWindow)).sendKeys(loginE());
         driver.findElement(By.cssSelector(passWindow)).clear();
-        driver.findElement(By.cssSelector(passWindow)).sendKeys(cfg.pass());
+        driver.findElement(By.cssSelector(passWindow)).sendKeys(passE());
         driver.findElement(By.cssSelector(buttonEnter)).click();
         Assert.assertNotNull(driver.findElement(By.cssSelector(".button__my-course")));
     }
