@@ -1,3 +1,30 @@
 /hw6/.idea/*
-/hw6/*.log
+/hw6/logs.log
 /hw6/target/*
+/hw6/.idea/**/workspace.xml
+/hw6/.idea/**/tasks.xml
+/hw6/.idea/**/usage.statistics.xml
+/hw6/.idea/**/dictionaries
+/hw6/.idea/**/shelf
+/hw6/.idea/**/compiler.xml
+
+
+
+# AWS User-specific
+/hw6/.idea/**/aws.xml
+
+# Generated files
+/hw6/.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+/hw6/.idea/**/dataSources/
+/hw6/.idea/**/dataSources.ids
+/hw6/.idea/**/dataSources.local.xml
+/hw6/.idea/**/sqlDataSources.xml
+/hw6/.idea/**/dynamic.xml
+/hw6/.idea/**/uiDesigner.xml
+/hw6/.idea/**/dbnavigator.xml
+
+# Gradle
+/hw6/.idea/**/gradle.xml
+/hw6/.idea/**/libraries
