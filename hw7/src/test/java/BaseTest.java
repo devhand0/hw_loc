@@ -21,12 +21,12 @@ public class BaseTest {
         }
     }
 
-    String options = "";
+    String options = System.getProperty("options");
     @Before
 
 
     public void setUp(){
-
+        System.out.println("options = " + options);
         if(browser().equals("CHROME")) {
             driver = WebDriverFactory.create(Browsers.CHROME, options);
         }
@@ -36,10 +36,10 @@ public class BaseTest {
         if(browser().equals("FIREFOX")) {
             driver = WebDriverFactory.create(Browsers.FIREFOX, options);
         }
-        else {
-            System.out.println("Нет такого браузер - будет EDGE");
-            driver = WebDriverFactory.create(Browsers.EDGE, options);
-        }
+//        else {
+//            System.out.println("Нет такого браузер - будет EDGE");
+//            driver = WebDriverFactory.create(Browsers.EDGE, options);
+//        }
         driver.manage().timeouts().implicitlyWait(11, TimeUnit.SECONDS);
 
 
@@ -47,7 +47,9 @@ public class BaseTest {
 
     @After
         public void end(){
-            if (driver!=null)                 ;
+            if (driver!=null){
+                driver.quit();
+            }
 
    }
 }

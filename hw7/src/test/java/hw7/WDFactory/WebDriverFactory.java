@@ -33,7 +33,8 @@ public class WebDriverFactory {
                 break;
             case EDGE:
                 WebDriverManager.edgedriver().setup();
-                if (par!=null){
+                if (par!=null)
+                {
                     EdgeOptions options = new EdgeOptions();
                     options.addArguments(par);
                 }

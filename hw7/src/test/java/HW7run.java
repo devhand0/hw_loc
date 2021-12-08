@@ -48,14 +48,14 @@ public class HW7run extends BaseTest {
     logger.info("Заполнение");
     lKpage.removeContacts();
     lKpage.modPersonal();
-        driver.quit();
+        end();
         logger.info("Заполнение закончено успешно");
 
     setUp();
     MainPage mainPage1 = new MainPage(driver);
     mainPage1.open().auth().goToPersonal();
     lKpage.checkPersonal();
-    driver.quit();
+    end();
     }
 
 
