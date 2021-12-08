@@ -4,7 +4,9 @@ import org.aeonbits.owner.Config;
 
 @Config.Sources("classpath:config.properties")
 public interface ServerConfig extends Config {
-@Config.Key("name")
+//@Config.Key("name")
+    String login();
+    String pass();
     String name();
     String nameLatin();
     String surname();
