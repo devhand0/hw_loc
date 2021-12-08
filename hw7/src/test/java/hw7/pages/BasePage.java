@@ -1,6 +1,6 @@
 package hw7.pages;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
+
 import config.ServerConfig;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +18,7 @@ public class BasePage {
     protected static WebDriver driver;
 
     public BasePage(WebDriver driver){
-        this.driver = driver;
+        BasePage.driver = driver;
     }
 
     public WebElement waitElement(By locator){return new WebDriverWait(driver, 25).until(ExpectedConditions.elementToBeClickable(locator));}

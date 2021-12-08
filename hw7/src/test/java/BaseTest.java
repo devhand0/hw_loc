@@ -1,13 +1,11 @@
 
-import config.ServerConfig;
 import hw7.WDFactory.Browsers;
 import hw7.WDFactory.WebDriverFactory;
-import org.aeonbits.owner.ConfigFactory;
+import javafx.scene.paint.Stop;
 import org.apache.logging.log4j.LogManager;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-
 import java.util.concurrent.TimeUnit;
 
 
@@ -15,13 +13,33 @@ public class BaseTest {
     protected WebDriver driver;
     public static final org.apache.logging.log4j.Logger
             logger = LogManager.getLogger(WebDriver.class);
-    private final ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
+
+    public String browser() {
+        if (System.getProperty("browser")==null){
+            return "EDGE";
+        }else {return System.getProperty("browser").toUpperCase();
+        }
+    }
+
+    String options = "";
     @Before
 
 
     public void setUp(){
-        String options = "";
-        driver = WebDriverFactory.create(Browsers.CHROME, options);
+
+        if(browser().equals("CHROME")) {
+            driver = WebDriverFactory.create(Browsers.CHROME, options);
+        }
+        if(browser().equals("EDGE")) {
+            driver = WebDriverFactory.create(Browsers.EDGE, options);
+        }
+        if(browser().equals("FIREFOX")) {
+            driver = WebDriverFactory.create(Browsers.FIREFOX, options);
+        }
+        else {
+            System.out.println("Нет такого браузер - будет EDGE");
+            driver = WebDriverFactory.create(Browsers.EDGE, options);
+        }
         driver.manage().timeouts().implicitlyWait(11, TimeUnit.SECONDS);
 
 
@@ -29,8 +47,7 @@ public class BaseTest {
 
     @After
         public void end(){
-            if (driver!=null)
-                 ;
+            if (driver!=null)                 ;
 
    }
 }

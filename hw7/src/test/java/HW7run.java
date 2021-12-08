@@ -40,7 +40,7 @@ public class HW7run extends BaseTest {
 //+1 балл - для хранения имен драйверов используются Enum
     @Test
 
-    public void any() throws InterruptedException {
+    public void any() {
     logger.info("Тест начат");
     MainPage mainPage = new MainPage(driver);
     mainPage.open().auth().goToPersonal();
@@ -48,16 +48,14 @@ public class HW7run extends BaseTest {
     logger.info("Заполнение");
     lKpage.removeContacts();
     lKpage.modPersonal();
-//    Thread.sleep(3000);
         driver.quit();
         logger.info("Заполнение закончено успешно");
 
     setUp();
     MainPage mainPage1 = new MainPage(driver);
     mainPage1.open().auth().goToPersonal();
-//    mainPage1.auth().goToPersonal();
     lKpage.checkPersonal();
-    end();
+    driver.quit();
     }
 
 
