@@ -19,17 +19,25 @@ public class WebDriverFactory {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
                 if (par!=null){
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments(par);}
-                driver = new ChromeDriver();
+                    ChromeOptions options = new ChromeOptions();
+                options.addArguments(par);
+                    driver = new ChromeDriver(options);
+                }
+                else{
+                    driver = new ChromeDriver();
+                }
+
                 break;
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
                 if (par!=null){
                     FirefoxOptions options = new FirefoxOptions();
                     options.addArguments(par);
+                    driver =new FirefoxDriver(options);
                 }
-                driver =new FirefoxDriver();
+                else {
+                    driver = new FirefoxDriver();
+                }
                 break;
             case EDGE:
                 WebDriverManager.edgedriver().setup();
@@ -37,8 +45,12 @@ public class WebDriverFactory {
                 {
                     EdgeOptions options = new EdgeOptions();
                     options.addArguments(par);
+                    driver =new EdgeDriver(options);
                 }
-                driver =new EdgeDriver();
+                else
+            {
+                driver = new EdgeDriver();
+            }
                 break;
         }
         return  driver;

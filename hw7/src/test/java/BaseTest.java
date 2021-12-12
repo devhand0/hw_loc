@@ -21,20 +21,22 @@ public class BaseTest {
         }
     }
 
-    String options = System.getProperty("options");
+//    String prop = System.getProperty("options");
+    String prop = "--start-fullscreen";
+
     @Before
 
 
     public void setUp(){
-        System.out.println("options = " + options);
+        System.out.println("options = " + prop);
         if(browser().equals("CHROME")) {
-            driver = WebDriverFactory.create(Browsers.CHROME, options);
+            driver = WebDriverFactory.create(Browsers.CHROME, prop);
         }
         if(browser().equals("EDGE")) {
-            driver = WebDriverFactory.create(Browsers.EDGE, options);
+            driver = WebDriverFactory.create(Browsers.EDGE, prop);
         }
         if(browser().equals("FIREFOX")) {
-            driver = WebDriverFactory.create(Browsers.FIREFOX, options);
+            driver = WebDriverFactory.create(Browsers.FIREFOX, prop);
         }
 //        else {
 //            System.out.println("Нет такого браузер - будет EDGE");
