@@ -90,7 +90,7 @@ public class LKpage extends BasePage{
             driver.findElement(birthdayLoc).sendKeys(cfg.birthday());
 //        Списки страна, город, уровень английского
             driver.findElement(countryLoc).click();
-            waitElement(By.xpath("//*[@title='Россия']")).click();
+            driver.findElement(By.xpath("//*[@title='Россия']")).click();
             waitElement(cityLoc).getText();
             waitElement(cityLoc).click();
             waitElement(By.xpath("//*[@title='Москва']")).click();
